@@ -1,1 +1,310 @@
 
+db.getCollection('teacher').find({ payment: 2500 })
+
+db.getCollection('teacher').find({
+    payment: 2500,
+    class_curator: 6
+})
+
+
+db.getCollection('teacher').insert({ 
+    model: "Yamaha Fazer",
+    year: 2008,
+    price: 3000
+});
+
+
+db.getCollection('teacher').find(
+        { payment: 2500, class_curator: 6 },
+        { name: true, payment: 1, _id: 0 }
+);
+
+db.getCollection('teacher').find({
+       $or: [
+           { payment: 2500 },
+           { payment: 2200 },
+           { class_curator: 6 }
+       ]
+});
+
+db.getCollection('teacher').find({
+       $and: [
+           { payment: 2500 },
+           { class_curator: 6 }
+       ]
+});
+
+db.getCollection('teacher').find({ name: /^o/i }) // o%
+
+db.getCollection('teacher').find({ name: /vna$/i }) // %vna
+
+db.getCollection('teacher').find({ name: /.*iv.*/i }) // %iv%
+
+db.getCollection('teacher').find({}).sort({ payment: -1, name: -1 })
+
+db.getCollection('teacher').find({}).sort({ payment: -1 }).limit(3).skip(6)
+
+db.getCollection('teacher').find({
+        payment: {
+//              $gte: 2500 // >=
+//              $lte: 2500 // <=
+//              $lt: 2500 // <
+//              $gt: 2500 // >
+//              $ne: 2500 // !=
+//              $eq: 2500 // ===
+        }
+})
+
+
+db.getCollection('teacher').find({
+        class_curator: {
+            $in: [7, 8, 9]
+        }
+})
+
+db.getCollection('teacher').find({
+        class_curator: {
+            $nin: [7, 8, 9]
+        }
+})
+
+
+db.getCollection('teacher').find({
+        class_curator: {
+            $not: {
+              $nin: [7, 8, 9]
+            }
+        }
+})
+
+
+db.getCollection('teacher').update(
+    {}, // FIND
+    {}, // UPDATE
+    {}  // OPTIONS
+);
+
+
+db.getCollection('teacher').update(
+    { _id: ObjectId("61176d106279a96d5004093f") },
+    { payment: 3500 }
+)
+
+db.getCollection('teacher').update(
+    { payment: { $lte: 2500 } },
+    { $set: { cars: ["Mazda", "Volga"] } },
+    { multi: true }
+)
+
+
+db.getCollection('teacher').updateMany(
+    { payment: { $lte: 2500 } },
+    { $set: { cars: ["Mazda", "Volga"] } }
+)
+
+db.getCollection('teacher').find({ cars: { $size: 3 } })
+
+db.getCollection('teacher').find({ cars: { $exists: false } })
+
+db.getCollection('teacher').find({ cars: 'BMW' });
+
+
+db.getCollection('teacher').update(
+  { cars: { $size: 1 } },
+  { $set: { 'cars.$[]' : 'Volvo' } }
+
+
+db.getCollection('teacher').updateMany(
+ { cars: { $size: 1 } },
+  { $set: { 'cars.$[].price' : '99999' } }
+);
+
+db.getCollection('teacher').find({ 'cars.model' : 'XC90' })
+
+
+db.getCollection('teacher').find({ 'cars.2' : 'BMW' })
+
+// IMPORT JSON TO MONGO
+mongoimport --db DZ --collection rest --file restaurants.json
+);
+
+///////////////////////////////////////// LESSON 2
+
+db.getCollection('teacher').aggregate([
+  {},
+  {},
+  {},
+  {},
+  {}
+])
+
+
+
+db.getCollection('teacher').aggregate([
+    {
+        $group: {
+                _id: "$payment",
+                countOfTeachers: {
+                       $sum: 1
+                }
+          }
+    }
+])
+
+db.getCollection('teacher').aggregate([
+    {
+        $group: {
+                _id: "$payment",
+                countOfTeachers: {
+                       $sum: 1
+                }
+          }
+    },
+    {
+          $sort: {
+                countOfTeachers: 1
+           }  
+     },
+     {
+            $project: {
+                    money: "$_id",
+                    countOfTeachers: 1,
+                    _id: 0
+             }
+      }
+])
+
+
+db.getCollection('teacher').aggregate([
+    {
+            $lookup: {
+                    from: "students",
+                    localField: "class_curator",
+                    foreignField: "class",
+                    as: "zabriki"
+             }
+     }
+])
+
+
+db.getCollection('teacher').aggregate([
+    {
+           $match: {
+                class_curator: { $exists: true }
+           }
+    },
+    {
+            $lookup: {
+                    from: "students",
+                    localField: "class_curator",
+                    foreignField: "class",
+                    as: "zabriki"
+             }
+     },
+     {
+            $match: {
+                 "zabriki.name": "Bob"
+            }
+     }
+])
+
+
+db.getCollection('teacher').aggregate([
+    {
+           $match: {
+                class_curator: { $exists: true }
+           }
+    },
+    {
+            $lookup: {
+                    from: "students",
+                    localField: "class_curator",
+                    foreignField: "class",
+                    as: "zabriki"
+             }
+     },
+     {
+            $match: {
+                 "zabriki.name": "Bob"
+            }
+     },
+     {
+            $unwind: "$zabriki"
+     }
+])
+
+
+
+db.getCollection('teacher').aggregate([
+    {
+           $match: {
+                class_curator: { $exists: true }
+           }
+    },
+    {
+            $lookup: {
+                    from: "students",
+                    localField: "class_curator",
+                    foreignField: "class",
+                    as: "zabriki"
+             }
+     },
+     {
+            $match: {
+                 "zabriki.name": "Bob"
+            }
+     },
+     {
+            $unwind: "$zabriki"
+     }
+])
+     
+     
+     
+     { 
+            name: "Mariia",
+            students: ["Antor", "Vika", "Vova", "Khry"]
+     }
+      ///////////////////
+     
+     {
+         name: "Mariia",
+         students: "Antor"
+     },
+     {
+         name: "Mariia",
+         students: "Vika"
+     },
+     {
+         name: "Mariia",
+         students: "Vova"
+     },
+     {
+         name: "Mariia",
+         students: "Khry"
+     },
+
+
+db.getCollection('teacher').aggregate([
+    {
+         $group: {
+                _id: 0,
+                maxPay: { $max: "$payment" },
+                minPay: { $min: "$payment" },
+                avgPay: { $avg: "$payment" },
+                sumPay: { $sum: "$payment" },
+                count:  { $sum: 1 },
+         }
+     }
+]);
+
+
+db.getCollection('teacher').aggregate([
+     {
+           $match: {
+                cars: 'Mazda'
+           }
+     },
+     { $count: "teachers_with_Mazda" }
+])
+
