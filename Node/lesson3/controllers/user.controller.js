@@ -2,7 +2,7 @@ const db = require('../db/users');
 
 module.exports = {
     getSingleUser: (req, res) => {
-        const {user_id} = req.params;
+        const { user_id } = req.params;
         const user = db[user_id];
 
         if (!user) {
