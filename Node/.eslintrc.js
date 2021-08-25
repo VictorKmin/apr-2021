@@ -3,42 +3,61 @@ module.exports = {
         es6: true,
         node: true
     },
+    globals: {},
     parserOptions: {
-        ecmaVersion: 2018,
-        sourceType: 'module'
+        ecmaVersion: 2018
     },
     extends: [
+        'airbnb-base',
         'eslint:recommended'
     ],
+    plugins: [],
     rules: {
-    // "array-bracket-newline": ["error", { "minItems": 2 }],
-    // "array-element-newline": ["error", { "minItems": 2 }],
-    // "arrow-body-style": "error",
+        'array-bracket-newline': [
+            'error',
+            { minItems: 2 }
+        ],
+        'array-element-newline': [
+            'error',
+            { minItems: 2 }
+        ],
+        'arrow-body-style': 'error',
         'block-scoped-var': 'error',
-        'comma-dangle': ['error', 'never'],
         complexity: 'error',
         'constructor-super': 'error',
+        camelcase: 'off',
         curly: 'error',
         'default-case': 'off',
+        'no-case-declarations': 'off',
         'dot-notation': 'error',
         'eol-last': 'error',
         eqeqeq: 'error',
-        'guard-for-in': 'error',
-        indent: ['error', 4, {SwitchCase: 1}],
+        'guard-for-in': 'off',
+        'global-require': 'off',
+        indent: [
+            'warn',
+            4,
+            { SwitchCase: 1 }
+        ],
+        'linebreak-style': 'off',
         'max-classes-per-file': 'off',
-        'max-len': ['error', {code: 140}],
-        // "newline-per-chained-call": "error",
+        'newline-per-chained-call': 'error',
         'new-parens': 'error',
-        'newline-before-return': 'error',
         'no-alert': 'error',
+        'no-duplicate-imports': 'error',
+        'no-nested-ternary': 'error',
+        'no-mixed-spaces-and-tabs': 'error',
+        'no-underscore-dangle': 'off',
         'no-bitwise': 'error',
         'no-caller': 'error',
-        'no-case-declarations': 'off',
         'no-cond-assign': 'error',
-        'no-console': 'off',
+        'no-console': 'warn',
         'no-else-return': 'error',
         'no-empty': 'off',
+        'no-plusplus': 'off',
         'no-empty-functions': 'off',
+        'consistent-return': 'off',
+        'no-dynamic-require': 'off',
         'no-eval': 'error',
         'no-extend-native': 'error',
         'no-extra-bind': 'error',
@@ -51,63 +70,72 @@ module.exports = {
         'no-labels': 'error',
         'no-lone-blocks': 'error',
         'no-loop-func': 'error',
-        // "no-magic-numbers": ["error", {"ignoreArrayIndexes": true}],
+        'max-len': [
+            'error',
+            {
+                ignoreRegExpLiterals: true,
+                ignoreUrls: true,
+                comments: 130,
+                code: 130
+            }
+        ],
+        'no-magic-numbers': [
+            'off',
+            { ignoreArrayIndexes: true }
+        ],
         'no-multi-spaces': 'error',
         'no-multi-str': 'error',
-        'no-multiple-empty-lines': ['error', {max: 1, maxEOF: 1}],
+        'no-multiple-empty-lines': 'error',
         'no-new': 'error',
+        'comma-dangle': 'off',
         'no-new-func': 'error',
         'no-new-wrappers': 'error',
         'no-octal-escape': 'error',
-        // "no-param-reassign": "error",
+        'no-param-reassign': 'warn',
         'no-proto': 'error',
         'no-return-assign': 'error',
         'no-return-await': 'error',
+        'no-restricted-syntax': 'off',
         'no-script-url': 'error',
         'no-self-compare': 'error',
         'no-sequences': 'error',
         'no-throw-literal': 'error',
-        'no-trailing-spaces': 'error',
         'no-undef-init': 'error',
         'no-unsafe-finally': 'error',
         'no-unused-expressions': 'error',
-        // "no-unused-vars": "error",
-        'no-use-before-define': 'error',
+        'no-unused-vars': [
+            'error',
+            { varsIgnorePattern: 'ctx' }
+        ],
+        'no-use-before-define': [
+            'error',
+            { functions: false }
+        ],
         'no-useless-call': 'error',
         'no-useless-concat': 'error',
         'no-useless-return': 'error',
         'no-var': 'error',
         'no-void': 'error',
         'object-shorthand': 'error',
-        'one-var': ['error', 'never'],
+        'one-var': [
+            'error',
+            'never'
+        ],
         'padding-line-between-statements': 'error',
-        'prefer-arrow-callback': 'error',
         'prefer-const': 'error',
+        'prefer-object-spread': 'warn',
         'quote-props': [
             'error',
             'as-needed'
         ],
-        quotes: ['error', 'single', {allowTemplateLiterals: true}],
         radix: 'error',
-        'require-atomic-updates': 'off',
         'require-await': 'error',
-        semi: ['error', 'always'],
         'sort-imports': [
             'error',
             {
                 ignoreCase: true,
                 ignoreDeclarationSort: true,
                 ignoreMemberSort: false
-            }
-        ],
-        'keyword-spacing': [
-            'error',
-            {
-                overrides: {
-                    if: {after: true},
-                    for: {after: true},
-                    while: {after: true}
-                }
             }
         ],
         'space-before-function-paren': [
@@ -121,5 +149,11 @@ module.exports = {
         'use-isnan': 'error',
         'wrap-iife': 'error',
         yoda: 'error'
-    }
+    },
+    overrides: [{
+        files: ['**/*.test.js'],
+        env: {
+            jest: true
+        }
+    }]
 };
