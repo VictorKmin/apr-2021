@@ -19,7 +19,7 @@ module.exports = {
     },
 
     createUser: (req, res) => {
-        console.log(req.body);
+        console.log(req.body)
         res.json('OK');
     }
 };
