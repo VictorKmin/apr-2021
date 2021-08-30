@@ -1,8 +1,13 @@
 {
   "name": "apr-2021",
   "version": "1.0.0",
+  "scripts": {
+    "dev": "nodemon Node/lesson6/app.js",
+    "start": "pm2 kill && pm2 start Node/lesson6/app.js && pm2 monit"
+  },
   "dependencies": {
     "bcrypt": "^5.0.1",
+    "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "express-handlebars": "^5.3.3",
     "joi": "^17.4.2",
@@ -15,7 +20,8 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^5.1.0",
     "husky": "4.3.0",
-    "lint-staged": "^11.1.2"
+    "lint-staged": "^11.1.2",
+    "nodemon": "^2.0.12"
   },
   "husky": {
     "hooks": {
