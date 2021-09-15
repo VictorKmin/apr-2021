@@ -1,0 +1,125 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Apr-2021 Swagger",
+    "version": "0.0.1",
+    "description": "Hello wordl",
+    "contact": {
+      "name": "Viktor"
+    }
+  },
+  "paths": {
+    "/users": {
+      "get": {
+        "tags": [
+          "users"
+        ],
+        "operationId": "getAllUsers",
+        "description": "Get all user",
+        "parameters": [
+          {
+            "name": "perPage",
+            "in": "query",
+            "default": 10,
+            "type": "number",
+            "required": false,
+            "description": "How many users will be returned"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "All users info arr",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/singleUser"
+              }
+            }
+          },
+          "400": {
+            "description": "bad request",
+            "schema": {
+              "$ref": "#/definitions/errorSchema"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "users"
+        ],
+        "description": "Create user",
+        "operationId": "createUser",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "formData",
+            "type": "string",
+            "required": true,
+            "default": "John",
+            "description": "User name"
+          },
+          {
+            "name": "email",
+            "in": "formData",
+            "type": "string",
+            "required": true,
+            "default": "john.doe@example.com",
+            "description": "User email"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string",
+            "required": true,
+            "default": "access_token"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User was created",
+            "schema": {
+              "$ref": "#/definitions/singleUser"
+            }
+          },
+          "400": {
+            "description": "bad request",
+            "schema": {
+              "$ref": "#/definitions/errorSchema"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "errorSchema": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string",
+          "description": "Error message",
+          "example": "Email or password is wrong"
+        },
+        "code": {
+          "description": "custom code",
+          "example": 228,
+          "type": "number"
+        }
+      }
+    },
+    "singleUser": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string",
+          "example": "777as999asd"
+        },
+        "email": {
+          "type": "string",
+          "example": "john.doe@example.com"
+        }
+      }
+    }
+  }
+}
